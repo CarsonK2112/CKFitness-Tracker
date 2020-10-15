@@ -24,7 +24,7 @@ router.get("/api/workouts", (req, res) => {
 router.put("/api/workouts/:id", (req, res) => {
   console.log("testing", typeof req.body, req.body)
   // updating workout
-  Workout.findByIdAndUpdate({ _id: req.params.id }, { exercises: req.body }, { new: true, runValidators: true })
+  Workout.findByIdAndUpdate({ _id: req.params.id }, { $push:{exercises: req.body} }, { new: true, runValidators: true })
   .then(updatedworkout => {
     console.log("updatedworkout", updatedworkout)
     res.json(updatedworkout)
@@ -33,9 +33,6 @@ router.put("/api/workouts/:id", (req, res) => {
     console.log(err)
     res.status(400).json(err);
   })
-  // console.log(req.body)
-  // console.log(req.params)
-  // res.end()
 })
 
 
